@@ -4,10 +4,11 @@ import 'package:movies/src/widgets/card_horizontal.dart';
 import 'package:movies/src/widgets/card_swiper_widget.dart';
 
 class HomePage extends StatelessWidget {
-  final movies = MoviesProvider();
+  final moviesProvider = MoviesProvider();
 
   @override
   Widget build(BuildContext context) {
+    moviesProvider.getPopular();
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
@@ -19,13 +20,13 @@ class HomePage extends StatelessWidget {
         ),
         body: Container(
             child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+               // mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[_swipperCard(), _footer(context)])));
   }
 
   Widget _swipperCard() {
     return FutureBuilder(
-      future: movies.getInTheaters(),
+      future: moviesProvider.getInTheaters(),
       builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
         if (!snapshot.hasData) {
           return Container(
@@ -44,9 +45,10 @@ class HomePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(padding: EdgeInsets.only(left: 20) ,child: Text('Populares', style: Theme.of(context).textTheme.subhead)),
-          SizedBox(height: 15),
-          FutureBuilder(
-            future: movies.getPopular(),
+          SizedBox(height: 5),
+          
+          StreamBuilder(
+            stream: moviesProvider.popularStream,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (!snapshot.hasData) {
                 return Container(
@@ -54,7 +56,7 @@ class HomePage extends StatelessWidget {
                     child: Center(child: CircularProgressIndicator()));
               }
 
-              return CardHorizontal(movies: snapshot.data);
+              return CardHorizontal(movies: snapshot.data, nextPage: moviesProvider.getPopular,);
             },
           ),
         ],
