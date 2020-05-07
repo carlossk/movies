@@ -12,6 +12,7 @@ class Movies {
 }
 
 class Movie {
+  String uniqueId;
   double popularity;
   int voteCount;
   bool video;
@@ -66,12 +67,14 @@ class Movie {
     }
     return 'https://image.tmdb.org/t/p/w500/$posterPath';
   }
+
   String getBackgroundImg() {
     if (backdropPath == null) {
       return 'https://edrl.berkeley.edu/wp-content/uploads/2019/06/no-image-available.jpg';
     }
     return 'https://image.tmdb.org/t/p/w500/$backdropPath';
   }
+
   String getAssetImage() {
     return 'assets/img/loading.gif';
   }
