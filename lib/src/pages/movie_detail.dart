@@ -21,9 +21,6 @@ class MovieDetail extends StatelessWidget {
             ),
             _posterTitle(context, movie),
             _description(movie),
-            _description(movie),
-            _description(movie),
-            _description(movie),
             _createCast(movie),
           ]))
         ],
@@ -106,7 +103,7 @@ class MovieDetail extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Text(
-        movie.overview,
+        movie.overview.isEmpty ? 'Sin descripción':movie.overview,
         textAlign: TextAlign.justify,
       ),
     );

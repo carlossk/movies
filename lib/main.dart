@@ -14,7 +14,6 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (BuildContext context) => HomePage(),
         'detail': (BuildContext context) => MovieDetail(),
-
       },
     );
   }
